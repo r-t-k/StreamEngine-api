@@ -1,14 +1,16 @@
 from fastapi import FastAPI
 from db import *
-
+from schemas import *
+from routers import users
 
 app = FastAPI()
 
-from channels import *
 
+app.include_router(users.router)
+app.include_router(
+    users.router,
+    prefix="/users",
+    tags=["users"],
+    responses={404: {"description": "Not found"}},
+)
 
-
-@app.get("/api/")
-async def root():
-    
-    return {"message": user_create('admin', 'tom@kyser.dev', 'Scooby25')}
