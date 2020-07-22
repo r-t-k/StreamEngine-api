@@ -8,6 +8,7 @@ from db import *
 
 class User(db.Entity):
     id = PrimaryKey(int, auto=True)
+    status = Optional(str)
     username = Required(str, unique=True)
     email = Required(str)
     password = Required(str)
