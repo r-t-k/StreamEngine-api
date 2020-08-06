@@ -5,23 +5,40 @@ from datetime import time
 import uuid
 
 
-
-
-
-class UserBase(BaseModel):
-    id : int
-    status : str
-    username : str
-    email : str
-    password : str
-
-class User(UserBase):
+class Base(BaseModel):
     id: int
-    status : str
-    username : str
-    email : str
-    password : str
+
+
+class User(Base):
+    status: str
+    username: str
+    email: str
+    password: str
+
     class Config:
         orm_mode = True
 
 
+
+ 
+class Chat(Base):
+    title : str
+    #channel: Channel
+    date: str
+    class Config:
+        orm_mode = True
+
+class Channel(Base):
+    title : str
+    chats: List[Chat] = []
+    class Config:
+        orm_mode = True
+
+
+class ChatMessage(Base):
+    chat: Chat
+    content: str
+    user: User
+    time: str
+    class Config:
+        orm_mode = True

@@ -5,10 +5,10 @@ from db import *
 
 
 
+#streamkey = Required(uuid.UUID, default=uuid.uuid4, unique=True)
 
 class User(db.Entity):
     id = PrimaryKey(int, auto=True)
-    status = Optional(str)
     username = Required(str, unique=True)
     email = Required(str)
     password = Required(str)
@@ -58,7 +58,7 @@ class Chat(db.Entity):
     id = PrimaryKey(int, auto=True)
     channel = Required(Channel)
     chat_messages = Set('ChatMessage')
-    date = Optional(date)
+    date = Optional(str)
 
 
 class ChannelAdmin(db.Entity):
@@ -126,8 +126,7 @@ class ChatMessage(db.Entity):
     chat = Required(Chat)
     content = Optional(str)
     user = Required(User)
-    time = Optional(time)
-
+    time = Optional(str)
 
 
 db.generate_mapping(create_tables=True)
